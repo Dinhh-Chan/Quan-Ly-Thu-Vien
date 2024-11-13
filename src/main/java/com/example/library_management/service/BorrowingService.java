@@ -74,6 +74,32 @@ public class BorrowingService {
         
         return borrowingRepository.save(borrowing);
     }
+    @Transactional
+    public void decrementBookStock(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID: " + bookId));
+
+        if (book.getInventory().getAvailableStock() <= 0) {
+            throw new IllegalStateException("No available stock for book ID: " + bookId);
+        }
+
+        // Decrement the available stock
+        book.getInventory().setAvailableStock(book.getInventory().getAvailableStock() - 1);
+
+        // Save the updated book inventory
+        bookRepository.save(book);
+    }
+    @Transactional
+    public void incrementBookStock(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID: " + bookId));
+
+        // Increment the available stock
+        book.getInventory().setAvailableStock(book.getInventory().getAvailableStock() + 1);
+
+        // Save the updated book inventory
+        bookRepository.save(book);
+    }
 
     // Cập nhật lần mượn (ví dụ: trả sách)
     @Transactional

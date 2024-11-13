@@ -50,24 +50,40 @@ public class BorrowingController {
 
     // Tạo lần mượn mới
     @PostMapping
-    public ResponseEntity<Borrowing> createBorrowing(@RequestBody BorrowingRequest borrowingRequest){
-        Borrowing createdBorrowing = borrowingService.createBorrowing(
-                borrowingRequest.getReaderId(),
-                borrowingRequest.getBookId(),
-                borrowingRequest.getBorrowDate(),
-                borrowingRequest.getReturnDate()
-        );
-        return ResponseEntity.status(201).body(createdBorrowing);
+    public ResponseEntity<Borrowing> createBorrowing(@RequestBody BorrowingRequest borrowingRequest) {
+        try {
+            Borrowing createdBorrowing = borrowingService.createBorrowing(
+                    borrowingRequest.getReaderId(),
+                    borrowingRequest.getBookId(),
+                    borrowingRequest.getBorrowDate(),
+                    borrowingRequest.getReturnDate()
+            );
+            
+            // Decrement available stock for the book
+            borrowingService.decrementBookStock(borrowingRequest.getBookId());
+    
+            return ResponseEntity.status(201).body(createdBorrowing);
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity.badRequest().build();
+        }
     }
-
     // Trả sách (cập nhật lần mượn)
     @PutMapping("/return/{id}")
-    public ResponseEntity<Borrowing> returnBook(@PathVariable Long id, @RequestParam(required = false) String actualReturnDate){
+    public ResponseEntity<Borrowing> returnBook(@PathVariable Long id, @RequestParam(required = false) String actualReturnDate) {
         try {
-            Borrowing updatedBorrowing = borrowingService.returnBook(id, 
-                    actualReturnDate != null ? LocalDate.parse(actualReturnDate) : LocalDate.now());
+            Borrowing updatedBorrowing = borrowingService.returnBook(
+                    id, 
+                    actualReturnDate != null ? LocalDate.parse(actualReturnDate) : LocalDate.now()
+            );
+    
+            // Check if the status has been updated to DA_TRA
+            if (updatedBorrowing.getStatus() == BorrowingStatus.DA_TRA) {
+                // Increment available stock for the book
+                borrowingService.incrementBookStock(updatedBorrowing.getBook().getId());
+            }
+    
             return ResponseEntity.ok(updatedBorrowing);
-        } catch (ResourceNotFoundException | IllegalStateException ex){
+        } catch (ResourceNotFoundException | IllegalStateException ex) {
             return ResponseEntity.badRequest().body(null);
         }
     }
