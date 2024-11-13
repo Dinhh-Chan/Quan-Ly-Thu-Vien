@@ -42,8 +42,8 @@ docker compose up -d
 If you want to create statistical charts from Apache Superset, first you must config to connect Apache Superset with Postgres which is running on docker-compose.
 #### There is how to connect Apache Superset to Postgres step by step. 
 - Go to localhost:8088 and login with admin user (admin:admin).
-- Click on setting and then click <strong>database connections <strong>.
-- Click on <strong> + Database <strong> button, then choose PostgreSQL.
+- Click on setting and then click <strong>database connections </strong>.
+- Click on <strong> + Database </strong> button, then choose PostgreSQL.
 - Type config follow this: 
     * Host: 172.17.0.1
     * Port: 5432
