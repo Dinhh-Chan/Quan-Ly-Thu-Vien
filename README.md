@@ -33,3 +33,14 @@ Then we can use docker-compose to create all containers needed for Apache Supers
 docker compose -f docker-compose-non-dev.yml up -d 
 ```
 Now you can go to localhost:8088 on your browser, and login with the safest duo ever (admin as user, and admin as passoword)
+### Run docker-compose 
+After clone Apache Superset, go to folder Thuvienv1 run this command to start container docker postgres: 
+``` 
+docker compose up -d
+```
+### Connect Apache Superset to Postgres container 
+If you want to create statistical charts from Apache Superset, first you must config to connect Apache Superset with Postgres which is running on docker-compose.
+#### There is how to connect Apache Superset to Postgres step by step 
+- Go to localhost:8088 and login with admin user (admin:admin)
+- Click on setting and then click database connections 
+-  
