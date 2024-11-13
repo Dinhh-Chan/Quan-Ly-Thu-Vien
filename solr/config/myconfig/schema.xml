@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="LibraryManagementSchema" version="1.6">
+  <fields>
+    <field name="id" type="long" indexed="true" stored="true" required="true" />
+    <field name="title" type="text_general" indexed="true" stored="true" />
+    <field name="quantity" type="int" indexed="true" stored="true" />
+    <field name="link_file" type="string" indexed="false" stored="true" />
+    <field name="authors" type="string" multiValued="true" indexed="true" stored="true" />
+    <field name="categories" type="string" multiValued="true" indexed="true" stored="true" />
+    <field name="inventory_total_stock" type="int" indexed="true" stored="true" />
+    <field name="inventory_available_stock" type="int" indexed="true" stored="true" />
+    <!-- Add other necessary fields -->
+  </fields>
+
+  <uniqueKey>id</uniqueKey>
+
+  <types>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" />
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0" />
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+    <!-- Define other field types as needed -->
+  </types>
+</schema>

@@ -30,30 +30,6 @@ services:
       - db_data:/var/lib/postgresql/data
     networks:
       - app-network
-
-  # Dịch vụ Apache Superset
-  superset:
-    image: apache/superset:latest
-    container_name: superset
-    ports:
-      - "8088:8088"
-    environment:
-      SUPERSET_DATABASE_URI: postgresql+psycopg2://superset_user:superset_pass@db:5432/superset
-      SUPERSET_SECRET_KEY: 'your_secret_key'  # Thay thế bằng khóa bí mật của bạn
-    volumes:
-      - superset_home:/var/lib/superset
-    depends_on:
-      - db
-    networks:
-      - app-network
-    command: >
-      /bin/bash -c "
-      superset db upgrade &&
-      superset fab create-admin --username admin --firstname Admin --lastname User --email admin@example.com --password admin &&
-      superset init &&
-      superset run -p 8088 --with-threads --reload --debugger
-      "
-
 networks:
   app-network:
 
