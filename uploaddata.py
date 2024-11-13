@@ -107,7 +107,7 @@ session = Session()
 
 # ------------------ Chèn Dữ Liệu ------------------
 
-# 1. Chèn dữ liệu vào bảng authors
+# # 1. Chèn dữ liệu vào bảng authors
 # authors_data = [
 #     (1, "Nguyễn Văn An", "Nguyễn Văn An là một tác giả nổi tiếng với nhiều tác phẩm văn học sâu sắc."),
 #     (2, "Trần Thị Bình", "Trần Thị Bình chuyên viết về lịch sử và văn hóa Việt Nam."),
@@ -135,7 +135,7 @@ session = Session()
 #     author_obj = Author(id=author[0], name=author[1], bio=author[2])
 #     session.merge(author_obj)  # Sử dụng merge để tránh duplicate nếu chạy nhiều lần
 
-# 2. Chèn dữ liệu vào bảng categories
+# # 2. Chèn dữ liệu vào bảng categories
 # categories_data = [
 #     (1, "Văn học"),
 #     (2, "Lịch sử"),
@@ -163,7 +163,7 @@ session = Session()
 #     category_obj = Category(id=category[0], category_name=category[1])
 #     session.merge(category_obj)
 
-# 3. Chèn dữ liệu vào bảng books
+# # 3. Chèn dữ liệu vào bảng books
 # books_data = [
 #     (1, "Văn học Việt Nam", 50, "https://example.com/books/vanhocvietnam.pdf"),
 #     (2, "Lịch sử Việt Nam", 40, "https://example.com/books/lichsuvietnam.pdf"),
@@ -191,7 +191,7 @@ session = Session()
 #     book_obj = Book(id=book[0], title=book[1], quantity=book[2], link_file=book[3])
 #     session.merge(book_obj)
 
-# 4. Chèn dữ liệu vào bảng book_authors
+# # 4. Chèn dữ liệu vào bảng book_authors
 # book_authors_data = [
 #     (1,1), (1,11),
 #     (2,2), (2,12),
@@ -222,64 +222,64 @@ session = Session()
 #     if author and book and author not in book.authors:
 #         book.authors.append(author)
 
-# 5. Chèn dữ liệu vào bảng book_category
-book_category_data = [
-    (1,1), (1,2),
-    (2,2), (2,1),
-    (3,3), (3,6),
-    (4,4), (4,7),
-    (5,5), (5,18),
-    (6,6), (6,3),
-    (7,7), (7,1),
-    (8,8), (8,2),
-    (9,5), (9,19),
-    (10,10), (10,4),
-    (11,11), (11,1),
-    (12,12), (12,3),
-    (13,13), (13,7),
-    (14,14), (14,3),
-    (15,15), (15,8),
-    (16,16), (16,7),
-    (17,17), (17,4),
-    (18,5), (18,18),
-    (19,19), (19,3),
-    (20,20), (20,1)
-]
-
-for bc in book_category_data:
-    book_id, category_id = bc
-    book = session.query(Book).get(book_id)
-    category = session.query(Category).get(category_id)
-    if category and book and category not in book.categories:
-        book.categories.append(category)
-
-# # 6. Chèn dữ liệu vào bảng inventory
-# inventory_data = [
-#     (1,1,100,95),
-#     (2,2,80,75),
-#     (3,3,60,55),
-#     (4,4,50,45),
-#     (5,5,70,65),
-#     (6,6,90,85),
-#     (7,7,40,35),
-#     (8,8,30,25),
-#     (9,9,120,115),
-#     (10,10,110,105),
-#     (11,11,85,80),
-#     (12,12,95,90),
-#     (13,13,65,60),
-#     (14,14,75,70),
-#     (15,15,55,50),
-#     (16,16,100,95),
-#     (17,17,45,40),
-#     (18,18,35,30),
-#     (19,19,25,20),
-#     (20,20,15,10)
+# # 5. Chèn dữ liệu vào bảng book_category
+# book_category_data = [
+#     (1,1), (1,2),
+#     (2,2), (2,1),
+#     (3,3), (3,6),
+#     (4,4), (4,7),
+#     (5,5), (5,18),
+#     (6,6), (6,3),
+#     (7,7), (7,1),
+#     (8,8), (8,2),
+#     (9,5), (9,19),
+#     (10,10), (10,4),
+#     (11,11), (11,1),
+#     (12,12), (12,3),
+#     (13,13), (13,7),
+#     (14,14), (14,3),
+#     (15,15), (15,8),
+#     (16,16), (16,7),
+#     (17,17), (17,4),
+#     (18,5), (18,18),
+#     (19,19), (19,3),
+#     (20,20), (20,1)
 # ]
 
-# for st in inventory_data:
-#     inventory_obj = Inventory(id=st[0], book_id=st[1], total_stock=st[2], available_stock=st[3])
-#     session.merge(inventory_obj)
+# for bc in book_category_data:
+#     book_id, category_id = bc
+#     book = session.query(Book).get(book_id)
+#     category = session.query(Category).get(category_id)
+#     if category and book and category not in book.categories:
+#         book.categories.append(category)
+
+# # 6. Chèn dữ liệu vào bảng inventory
+inventory_data = [
+    (1,1,100,95),
+    (2,2,80,75),
+    (3,3,60,55),
+    (4,4,50,45),
+    (5,5,70,65),
+    (6,6,90,85),
+    (7,7,40,35),
+    (8,8,30,25),
+    (9,9,120,115),
+    (10,10,110,105),
+    (11,11,85,80),
+    (12,12,95,90),
+    (13,13,65,60),
+    (14,14,75,70),
+    (15,15,55,50),
+    (16,16,100,95),
+    (17,17,45,40),
+    (18,18,35,30),
+    (19,19,25,20),
+    (20,20,15,10)
+]
+
+for st in inventory_data:
+    inventory_obj = Inventory(id=st[0], book_id=st[1], total_stock=st[2], available_stock=st[3])
+    session.merge(inventory_obj)
 
 # 7. Chèn dữ liệu vào bảng readers
 # readers_data = [

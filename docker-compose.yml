@@ -1,22 +1,6 @@
 version: '3.8'
 
 services:
-  # Dịch vụ ứng dụng Spring Boot
-  springboot-app:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/library_management
-      SPRING_DATASOURCE_USERNAME: library_user
-      SPRING_DATASOURCE_PASSWORD: library_pass
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
-    networks:
-      - app-network
-
   # Dịch vụ cơ sở dữ liệu PostgreSQL cho Spring Boot và Superset
   db:
     image: postgres:15
