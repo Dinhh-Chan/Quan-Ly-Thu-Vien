@@ -1,7 +1,9 @@
 package com.example.library_management.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.library_management.dto.BookRequest;
 import com.example.library_management.entity.Book;
@@ -40,6 +44,21 @@ public class BookController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<?> uploadBookImage(@PathVariable Long id, 
+                                            @RequestParam("image") MultipartFile image) {
+        try {
+            Book updatedBook = bookService.uploadBookImage(id, image);
+            return ResponseEntity.ok(updatedBook);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(e.getMessage());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                                 .body("Could not upload the image. Please try again!");
+        }
+    }
+
+
 
     // Tạo sách mới
     @PostMapping

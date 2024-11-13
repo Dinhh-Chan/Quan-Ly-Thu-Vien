@@ -34,6 +34,7 @@ class Book(Base):
     title = Column(String, nullable=False)
     quantity = Column(Integer)
     link_file = Column(String)
+    path_image = Column(String)
 
     authors = relationship('Author', secondary=book_authors, back_populates='books')
     categories = relationship('Category', secondary=book_categories, back_populates='books')
@@ -107,151 +108,151 @@ session = Session()
 
 # ------------------ Chèn Dữ Liệu ------------------
 
-# # 1. Chèn dữ liệu vào bảng authors
-# authors_data = [
-#     (1, "Nguyễn Văn An", "Nguyễn Văn An là một tác giả nổi tiếng với nhiều tác phẩm văn học sâu sắc."),
-#     (2, "Trần Thị Bình", "Trần Thị Bình chuyên viết về lịch sử và văn hóa Việt Nam."),
-#     (3, "Lê Thị Cúc", "Lê Thị Cúc là nhà văn trẻ với nhiều tác phẩm tiểu thuyết hấp dẫn."),
-#     (4, "Phạm Văn Dũng", "Phạm Văn Dũng là chuyên gia trong lĩnh vực khoa học máy tính."),
-#     (5, "Hoàng Thị Em", "Hoàng Thị Em đã xuất bản nhiều sách giáo khoa và tài liệu học tập."),
-#     (6, "Đỗ Minh Huy", "Đỗ Minh Huy là nhà nghiên cứu trong lĩnh vực y học."),
-#     (7, "Ngô Thị Hà", "Ngô Thị Hà là nhà văn với nhiều truyện ngắn nổi tiếng."),
-#     (8, "Huỳnh Văn Khoa", "Huỳnh Văn Khoa chuyên viết về kinh tế và quản trị doanh nghiệp."),
-#     (9, "Đặng Thị Lan", "Đặng Thị Lan là giảng viên đại học và tác giả nhiều sách giáo trình."),
-#     (10, "Phan Minh Long", "Phan Minh Long là nhà báo với nhiều bài viết phân tích sâu sắc."),
-#     (11, "Nguyễn Thị Mai", "Nguyễn Thị Mai là nhà thơ với nhiều bài thơ được đánh giá cao."),
-#     (12, "Trần Văn Nam", "Trần Văn Nam là nhà nghiên cứu trong lĩnh vực công nghệ thông tin."),
-#     (13, "Lê Thị Oanh", "Lê Thị Oanh là biên kịch và nhà sản xuất phim."),
-#     (14, "Phạm Minh Phương", "Phạm Minh Phương là nhà thiết kế đồ họa và nghệ sĩ số."),
-#     (15, "Hoàng Văn Quang", "Hoàng Văn Quang chuyên viết về du lịch và khám phá."),
-#     (16, "Đỗ Thị Rượu", "Đỗ Thị Rượu là nhà văn trẻ với nhiều tác phẩm khoa học viễn tưởng."),
-#     (17, "Ngô Minh Sơn", "Ngô Minh Sơn là chuyên gia về môi trường và phát triển bền vững."),
-#     (18, "Huỳnh Thị Trang", "Huỳnh Thị Trang là nhà giáo dục và tác giả sách giáo dục."),
-#     (19, "Đặng Văn Tú", "Đặng Văn Tú là kỹ sư phần mềm với nhiều dự án thành công."),
-#     (20, "Phan Thị Uyên", "Phan Thị Uyên là nhà văn với nhiều tiểu thuyết bán chạy.")
-# ]
+# 1. Chèn dữ liệu vào bảng authors
+authors_data = [
+    (1, "Nguyễn Văn An", "Nguyễn Văn An là một tác giả nổi tiếng với nhiều tác phẩm văn học sâu sắc."),
+    (2, "Trần Thị Bình", "Trần Thị Bình chuyên viết về lịch sử và văn hóa Việt Nam."),
+    (3, "Lê Thị Cúc", "Lê Thị Cúc là nhà văn trẻ với nhiều tác phẩm tiểu thuyết hấp dẫn."),
+    (4, "Phạm Văn Dũng", "Phạm Văn Dũng là chuyên gia trong lĩnh vực khoa học máy tính."),
+    (5, "Hoàng Thị Em", "Hoàng Thị Em đã xuất bản nhiều sách giáo khoa và tài liệu học tập."),
+    (6, "Đỗ Minh Huy", "Đỗ Minh Huy là nhà nghiên cứu trong lĩnh vực y học."),
+    (7, "Ngô Thị Hà", "Ngô Thị Hà là nhà văn với nhiều truyện ngắn nổi tiếng."),
+    (8, "Huỳnh Văn Khoa", "Huỳnh Văn Khoa chuyên viết về kinh tế và quản trị doanh nghiệp."),
+    (9, "Đặng Thị Lan", "Đặng Thị Lan là giảng viên đại học và tác giả nhiều sách giáo trình."),
+    (10, "Phan Minh Long", "Phan Minh Long là nhà báo với nhiều bài viết phân tích sâu sắc."),
+    (11, "Nguyễn Thị Mai", "Nguyễn Thị Mai là nhà thơ với nhiều bài thơ được đánh giá cao."),
+    (12, "Trần Văn Nam", "Trần Văn Nam là nhà nghiên cứu trong lĩnh vực công nghệ thông tin."),
+    (13, "Lê Thị Oanh", "Lê Thị Oanh là biên kịch và nhà sản xuất phim."),
+    (14, "Phạm Minh Phương", "Phạm Minh Phương là nhà thiết kế đồ họa và nghệ sĩ số."),
+    (15, "Hoàng Văn Quang", "Hoàng Văn Quang chuyên viết về du lịch và khám phá."),
+    (16, "Đỗ Thị Rượu", "Đỗ Thị Rượu là nhà văn trẻ với nhiều tác phẩm khoa học viễn tưởng."),
+    (17, "Ngô Minh Sơn", "Ngô Minh Sơn là chuyên gia về môi trường và phát triển bền vững."),
+    (18, "Huỳnh Thị Trang", "Huỳnh Thị Trang là nhà giáo dục và tác giả sách giáo dục."),
+    (19, "Đặng Văn Tú", "Đặng Văn Tú là kỹ sư phần mềm với nhiều dự án thành công."),
+    (20, "Phan Thị Uyên", "Phan Thị Uyên là nhà văn với nhiều tiểu thuyết bán chạy.")
+]
 
-# for author in authors_data:
-#     author_obj = Author(id=author[0], name=author[1], bio=author[2])
-#     session.merge(author_obj)  # Sử dụng merge để tránh duplicate nếu chạy nhiều lần
+for author in authors_data:
+    author_obj = Author(id=author[0], name=author[1], bio=author[2])
+    session.merge(author_obj)  # Sử dụng merge để tránh duplicate nếu chạy nhiều lần
 
-# # 2. Chèn dữ liệu vào bảng categories
-# categories_data = [
-#     (1, "Văn học"),
-#     (2, "Lịch sử"),
-#     (3, "Khoa học máy tính"),
-#     (4, "Y học"),
-#     (5, "Giao dục"),
-#     (6, "Tin học"),
-#     (7, "Truyện ngắn"),
-#     (8, "Kinh tế"),
-#     (9, "Giáo trình"),
-#     (10, "Báo chí"),
-#     (11, "Thơ"),
-#     (12, "Công nghệ thông tin"),
-#     (13, "Điện ảnh"),
-#     (14, "Đồ họa"),
-#     (15, "Du lịch"),
-#     (16, "Viễn tưởng"),
-#     (17, "Môi trường"),
-#     (18, "Sách giáo dục"),
-#     (19, "Kỹ thuật phần mềm"),
-#     (20, "Tiểu thuyết")
-# ]
+# 2. Chèn dữ liệu vào bảng categories
+categories_data = [
+    (1, "Văn học"),
+    (2, "Lịch sử"),
+    (3, "Khoa học máy tính"),
+    (4, "Y học"),
+    (5, "Giao dục"),
+    (6, "Tin học"),
+    (7, "Truyện ngắn"),
+    (8, "Kinh tế"),
+    (9, "Giáo trình"),
+    (10, "Báo chí"),
+    (11, "Thơ"),
+    (12, "Công nghệ thông tin"),
+    (13, "Điện ảnh"),
+    (14, "Đồ họa"),
+    (15, "Du lịch"),
+    (16, "Viễn tưởng"),
+    (17, "Môi trường"),
+    (18, "Sách giáo dục"),
+    (19, "Kỹ thuật phần mềm"),
+    (20, "Tiểu thuyết")
+]
 
-# for category in categories_data:
-#     category_obj = Category(id=category[0], category_name=category[1])
-#     session.merge(category_obj)
+for category in categories_data:
+    category_obj = Category(id=category[0], category_name=category[1])
+    session.merge(category_obj)
 
-# # 3. Chèn dữ liệu vào bảng books
-# books_data = [
-#     (1, "Văn học Việt Nam", 50, "https://example.com/books/vanhocvietnam.pdf"),
-#     (2, "Lịch sử Việt Nam", 40, "https://example.com/books/lichsuvietnam.pdf"),
-#     (3, "Giới thiệu về Java", 30, "https://example.com/books/java_intro.pdf"),
-#     (4, "Y học hiện đại", 25, "https://example.com/books/yhoc_hientai.pdf"),
-#     (5, "Giao dục cơ bản", 35, "https://example.com/books/giaoduc_coban.pdf"),
-#     (6, "Tin học đại cương", 45, "https://example.com/books/tinhoc_daicuong.pdf"),
-#     (7, "Truyện ngắn Việt", 20, "https://example.com/books/truyennhienvietnam.pdf"),
-#     (8, "Kinh tế học", 15, "https://example.com/books/kinhtehoc.pdf"),
-#     (9, "Giáo trình đại số", 50, "https://example.com/books/giaotrinh_daiso.pdf"),
-#     (10, "Báo chí và truyền thông", 30, "https://example.com/books/baochi_truyenthong.pdf"),
-#     (11, "Thơ Việt Nam", 25, "https://example.com/books/tho_vietnam.pdf"),
-#     (12, "Công nghệ thông tin ứng dụng", 40, "https://example.com/books/congnghe_ttungdung.pdf"),
-#     (13, "Điện ảnh Việt Nam", 20, "https://example.com/books/dienanh_vietnam.pdf"),
-#     (14, "Đồ họa kỹ thuật số", 35, "https://example.com/books/dohoa_kithuatso.pdf"),
-#     (15, "Du lịch thế giới", 30, "https://example.com/books/dulich_thegioi.pdf"),
-#     (16, "Viễn tưởng và giả tưởng", 20, "https://example.com/books/vientuong_giatuong.pdf"),
-#     (17, "Môi trường và phát triển", 25, "https://example.com/books/moitruong_phattrien.pdf"),
-#     (18, "Sách giáo dục tiểu học", 40, "https://example.com/books/sachgiaoduc_tieuhoc.pdf"),
-#     (19, "Kỹ thuật phần mềm", 30, "https://example.com/books/kithuatphanmem.pdf"),
-#     (20, "Tiểu thuyết lãng mạn", 20, "https://example.com/books/tieuthuyet_langman.pdf")
-# ]
+# 3. Chèn dữ liệu vào bảng books
+books_data = [
+    (1, "Văn học Việt Nam", 50, "https://example.com/books/vanhocvietnam.pdf", "static/book_img/book.png"),
+    (2, "Lịch sử Việt Nam", 40, "https://example.com/books/lichsuvietnam.pdf","static/book_img/book.png"),
+    (3, "Giới thiệu về Java", 30, "https://example.com/books/java_intro.pdf","static/book_img/book.png"),
+    (4, "Y học hiện đại", 25, "https://example.com/books/yhoc_hientai.pdf","static/book_img/book.png"),
+    (5, "Giao dục cơ bản", 35, "https://example.com/books/giaoduc_coban.pdf","static/book_img/book.png"),
+    (6, "Tin học đại cương", 45, "https://example.com/books/tinhoc_daicuong.pdf","static/book_img/book.png"),
+    (7, "Truyện ngắn Việt", 20, "https://example.com/books/truyennhienvietnam.pdf","static/book_img/book.png"),
+    (8, "Kinh tế học", 15, "https://example.com/books/kinhtehoc.pdf","static/book_img/book.png"),
+    (9, "Giáo trình đại số", 50, "https://example.com/books/giaotrinh_daiso.pdf","static/book_img/book.png"),
+    (10, "Báo chí và truyền thông", 30, "https://example.com/books/baochi_truyenthong.pdf","static/book_img/book.png"),
+    (11, "Thơ Việt Nam", 25, "https://example.com/books/tho_vietnam.pdf","static/book_img/book.png"),
+    (12, "Công nghệ thông tin ứng dụng", 40, "https://example.com/books/congnghe_ttungdung.pdf","static/book_img/book.png"),
+    (13, "Điện ảnh Việt Nam", 20, "https://example.com/books/dienanh_vietnam.pdf","static/book_img/book.png"),
+    (14, "Đồ họa kỹ thuật số", 35, "https://example.com/books/dohoa_kithuatso.pdf","static/book_img/book.png"),
+    (15, "Du lịch thế giới", 30, "https://example.com/books/dulich_thegioi.pdf","static/book_img/book.png"),
+    (16, "Viễn tưởng và giả tưởng", 20, "https://example.com/books/vientuong_giatuong.pdf","static/book_img/book.png"),
+    (17, "Môi trường và phát triển", 25, "https://example.com/books/moitruong_phattrien.pdf","static/book_img/book.png"),
+    (18, "Sách giáo dục tiểu học", 40, "https://example.com/books/sachgiaoduc_tieuhoc.pdf","static/book_img/book.png"),
+    (19, "Kỹ thuật phần mềm", 30, "https://example.com/books/kithuatphanmem.pdf","static/book_img/book.png"),
+    (20, "Tiểu thuyết lãng mạn", 20, "https://example.com/books/tieuthuyet_langman.pdf","static/book_img/book.png")
+]
 
-# for book in books_data:
-#     book_obj = Book(id=book[0], title=book[1], quantity=book[2], link_file=book[3])
-#     session.merge(book_obj)
+for book in books_data:
+    book_obj = Book(id=book[0], title=book[1], quantity=book[2], link_file=book[3], path_image= book[4])
+    session.merge(book_obj)
 
-# # 4. Chèn dữ liệu vào bảng book_authors
-# book_authors_data = [
-#     (1,1), (1,11),
-#     (2,2), (2,12),
-#     (3,3), (3,13),
-#     (4,4), (4,14),
-#     (5,5), (5,15),
-#     (6,6), (6,16),
-#     (7,7), (7,17),
-#     (8,8), (8,18),
-#     (9,9), (9,19),
-#     (10,10), (10,20),
-#     (11,1), (11,11),
-#     (12,2), (12,12),
-#     (13,3), (13,13),
-#     (14,4), (14,14),
-#     (15,5), (15,15),
-#     (16,6), (16,16),
-#     (17,7), (17,17),
-#     (18,8), (18,18),
-#     (19,9), (19,19),
-#     (20,10), (20,20)
-# ]
+# 4. Chèn dữ liệu vào bảng book_authors
+book_authors_data = [
+    (1,1), (1,11),
+    (2,2), (2,12),
+    (3,3), (3,13),
+    (4,4), (4,14),
+    (5,5), (5,15),
+    (6,6), (6,16),
+    (7,7), (7,17),
+    (8,8), (8,18),
+    (9,9), (9,19),
+    (10,10), (10,20),
+    (11,1), (11,11),
+    (12,2), (12,12),
+    (13,3), (13,13),
+    (14,4), (14,14),
+    (15,5), (15,15),
+    (16,6), (16,16),
+    (17,7), (17,17),
+    (18,8), (18,18),
+    (19,9), (19,19),
+    (20,10), (20,20)
+]
 
-# for ba in book_authors_data:
-#     book_id, author_id = ba
-#     book = session.query(Book).get(book_id)
-#     author = session.query(Author).get(author_id)
-#     if author and book and author not in book.authors:
-#         book.authors.append(author)
+for ba in book_authors_data:
+    book_id, author_id = ba
+    book = session.query(Book).get(book_id)
+    author = session.query(Author).get(author_id)
+    if author and book and author not in book.authors:
+        book.authors.append(author)
 
-# # 5. Chèn dữ liệu vào bảng book_category
-# book_category_data = [
-#     (1,1), (1,2),
-#     (2,2), (2,1),
-#     (3,3), (3,6),
-#     (4,4), (4,7),
-#     (5,5), (5,18),
-#     (6,6), (6,3),
-#     (7,7), (7,1),
-#     (8,8), (8,2),
-#     (9,5), (9,19),
-#     (10,10), (10,4),
-#     (11,11), (11,1),
-#     (12,12), (12,3),
-#     (13,13), (13,7),
-#     (14,14), (14,3),
-#     (15,15), (15,8),
-#     (16,16), (16,7),
-#     (17,17), (17,4),
-#     (18,5), (18,18),
-#     (19,19), (19,3),
-#     (20,20), (20,1)
-# ]
+# 5. Chèn dữ liệu vào bảng book_category
+book_category_data = [
+    (1,1), (1,2),
+    (2,2), (2,1),
+    (3,3), (3,6),
+    (4,4), (4,7),
+    (5,5), (5,18),
+    (6,6), (6,3),
+    (7,7), (7,1),
+    (8,8), (8,2),
+    (9,5), (9,19),
+    (10,10), (10,4),
+    (11,11), (11,1),
+    (12,12), (12,3),
+    (13,13), (13,7),
+    (14,14), (14,3),
+    (15,15), (15,8),
+    (16,16), (16,7),
+    (17,17), (17,4),
+    (18,5), (18,18),
+    (19,19), (19,3),
+    (20,20), (20,1)
+]
 
-# for bc in book_category_data:
-#     book_id, category_id = bc
-#     book = session.query(Book).get(book_id)
-#     category = session.query(Category).get(category_id)
-#     if category and book and category not in book.categories:
-#         book.categories.append(category)
+for bc in book_category_data:
+    book_id, category_id = bc
+    book = session.query(Book).get(book_id)
+    category = session.query(Category).get(category_id)
+    if category and book and category not in book.categories:
+        book.categories.append(category)
 
 # # 6. Chèn dữ liệu vào bảng inventory
 inventory_data = [

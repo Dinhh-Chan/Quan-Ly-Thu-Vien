@@ -31,10 +31,10 @@ public class Book {
 
     @Column(name = "quantity", nullable= false )
     private Integer quantity;
-
+    @Column(name ="path_image", nullable= false )
+    private String path_image;
     @Column(name = "link_file", nullable = false)
     private String link_file;
-
     // Mối quan hệ nhiều-nhiều với Category
     @ManyToMany
     @JsonManagedReference("book-categories") // Đặt tên cho mối quan hệ
@@ -137,5 +137,11 @@ public class Book {
 
     public void setBorrowings(Set<Borrowing> borrowings) {
         this.borrowings = borrowings;
+    }
+    public String getPath_Image(){
+        return path_image;
+    }
+    public void setPath_Imange(String path_image){
+        this.path_image = path_image;
     }
 }
