@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.library_management.dto.AuthorRequest;
@@ -70,5 +71,23 @@ public class AuthorController {
         } catch (Exception ex){
             return ResponseEntity.notFound().build();
         }
+    }
+    // Search authors by name (Existing)
+    @GetMapping("/search")
+    public ResponseEntity<List<Author>> searchAuthorsByName(@RequestParam("name") String name){
+        List<Author> authors = authorService.searchAuthorsByName(name);
+        return ResponseEntity.ok(authors);
+    }
+
+    // **New: Search authors by keyword**
+    @GetMapping("/search/keyword")
+    public ResponseEntity<List<Author>> searchAuthorsByKeyword(
+            @RequestParam("keyword") String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy
+    ) {
+        List<Author> authors = authorService.searchAuthorsByKeyword(keyword, page, size, sortBy);
+        return ResponseEntity.ok(authors);
     }
 }

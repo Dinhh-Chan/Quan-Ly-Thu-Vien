@@ -1,4 +1,4 @@
-package com.example.library_management.repository;
+package com.example.library_management.repository.JpaRepository;
 
 import java.util.List;
 

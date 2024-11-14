@@ -1,13 +1,17 @@
 package com.example.library_management.service;
 
-import com.example.library_management.entity.Author;
-import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.AuthorRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import com.example.library_management.entity.Author;
+import com.example.library_management.exception.ResourceNotFoundException;
+import com.example.library_management.repository.JpaRepository.AuthorRepository;
 @Service
 public class AuthorService {
     
@@ -45,6 +49,17 @@ public class AuthorService {
     // Xóa tác giả
     public void deleteAuthor(Long id){
         authorRepository.deleteById(id);
+    }
+    // Existing: Search authors by name
+    public List<Author> searchAuthorsByName(String name) {
+        return authorRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    // **New: Search authors by keyword across multiple fields**
+    public List<Author> searchAuthorsByKeyword(String keyword, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
+        Page<Author> authorPage = authorRepository.findByNameContainingIgnoreCaseOrBioContainingIgnoreCase(keyword, keyword, pageable);
+        return authorPage.getContent();
     }
 
     // Thêm các phương thức nghiệp vụ khác nếu cần

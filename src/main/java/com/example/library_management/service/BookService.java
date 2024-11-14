@@ -1,7 +1,10 @@
 package com.example.library_management.service;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.library_management.entity.Book;
 import com.example.library_management.entity.Category;
 import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.BookRepository;
-import com.example.library_management.repository.CategoryRepository;
+import com.example.library_management.repository.JpaRepository.BookRepository;
+import com.example.library_management.repository.JpaRepository.CategoryRepository;
 
 @Service
 public class BookService {

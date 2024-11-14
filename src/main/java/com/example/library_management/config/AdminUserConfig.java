@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.library_management.entity.Reader;
 import com.example.library_management.enums.UserRole;
-import com.example.library_management.repository.ReaderRepository;
+import com.example.library_management.repository.JpaRepository.ReaderRepository;
 
 @Configuration
 public class AdminUserConfig {

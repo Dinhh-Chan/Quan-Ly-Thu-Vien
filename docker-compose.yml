@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Dịch vụ cơ sở dữ liệu PostgreSQL cho Spring Boot và Superset
+  # PostgreSQL database service for Spring Boot and Superset
   db:
     image: postgres:15
     environment:
@@ -14,9 +14,23 @@ services:
       - db_data:/var/lib/postgresql/data
     networks:
       - app-network
+
+  # Solr service for search capabilities
+  solr:
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr_data:/var/solr
+    command: 
+      - solr-precreate
+      - gettingstarted
+    networks:
+      - app-network
+    
 networks:
   app-network:
 
 volumes:
   db_data:
-  superset_home:
+  solr_data:

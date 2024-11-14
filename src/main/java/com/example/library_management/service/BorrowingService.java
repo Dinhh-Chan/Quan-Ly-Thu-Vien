@@ -14,9 +14,9 @@ import com.example.library_management.entity.Inventory;
 import com.example.library_management.entity.Reader;
 import com.example.library_management.enums.BorrowingStatus;
 import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.BookRepository;
-import com.example.library_management.repository.BorrowingRepository;
-import com.example.library_management.repository.ReaderRepository;
+import com.example.library_management.repository.JpaRepository.BookRepository;
+import com.example.library_management.repository.JpaRepository.BorrowingRepository;
+import com.example.library_management.repository.JpaRepository.ReaderRepository;
 
 @Service
 public class BorrowingService {

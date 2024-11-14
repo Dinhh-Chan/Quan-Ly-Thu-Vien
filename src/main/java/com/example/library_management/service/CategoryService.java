@@ -1,12 +1,13 @@
 package com.example.library_management.service;
 
-import com.example.library_management.entity.Category;
-import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.CategoryRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.library_management.entity.Category;
+import com.example.library_management.exception.ResourceNotFoundException;
+import com.example.library_management.repository.JpaRepository.CategoryRepository;
 
 @Service
 public class CategoryService {

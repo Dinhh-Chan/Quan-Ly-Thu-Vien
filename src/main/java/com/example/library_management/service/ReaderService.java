@@ -1,13 +1,14 @@
 package com.example.library_management.service;
 
-import com.example.library_management.entity.Reader;
-import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.ReaderRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.library_management.entity.Reader;
+import com.example.library_management.exception.ResourceNotFoundException;
+import com.example.library_management.repository.JpaRepository.ReaderRepository;
 
 @Service
 public class ReaderService {

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.library_management.entity.Book;
 import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.BookRepository;
+import com.example.library_management.repository.JpaRepository.BookRepository;
 
 @RestController
 @RequestMapping("/api/books")

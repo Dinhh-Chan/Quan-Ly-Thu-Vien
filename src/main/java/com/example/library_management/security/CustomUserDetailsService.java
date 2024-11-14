@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.library_management.entity.Reader;
-import com.example.library_management.repository.ReaderRepository;
+import com.example.library_management.repository.JpaRepository.ReaderRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

@@ -1,12 +1,13 @@
 package com.example.library_management.service;
 
-import com.example.library_management.entity.Inventory;
-import com.example.library_management.exception.ResourceNotFoundException;
-import com.example.library_management.repository.InventoryRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.library_management.entity.Inventory;
+import com.example.library_management.exception.ResourceNotFoundException;
+import com.example.library_management.repository.JpaRepository.InventoryRepository;
 
 @Service
 public class InventoryService {
